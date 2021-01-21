@@ -70,7 +70,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "\n\t\tAddress{" +
                 "id=" + id +
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +

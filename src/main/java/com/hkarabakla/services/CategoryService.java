@@ -1,5 +1,6 @@
 package com.hkarabakla.services;
 
+import com.hkarabakla.entities.Authors;
 import com.hkarabakla.entities.Book;
 import com.hkarabakla.entities.Category;
 import com.hkarabakla.repositories.CategoryRepo;
