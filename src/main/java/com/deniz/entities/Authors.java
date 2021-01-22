@@ -1,10 +1,10 @@
-package com.hkarabakla.entities;
+package com.deniz.entities;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Category {
+public class Authors {
 
     @Id
     @GeneratedValue
@@ -12,7 +12,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private List<Book> books;
 
     public int getId() {
@@ -23,14 +23,6 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public List<Book> getBooks() {
         return books;
     }
@@ -39,9 +31,17 @@ public class Category {
         this.books = books;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return "Category{" +
+        return "\n\t\tAuthors{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
 //                ", books=" + books +

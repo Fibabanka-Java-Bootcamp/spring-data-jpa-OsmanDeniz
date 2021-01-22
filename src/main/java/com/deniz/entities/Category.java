@@ -1,10 +1,13 @@
-package com.hkarabakla.entities;
+package com.deniz.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Authors {
+public class Category {
 
     @Id
     @GeneratedValue
@@ -12,7 +15,7 @@ public class Authors {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
     private List<Book> books;
 
     public int getId() {
@@ -23,14 +26,6 @@ public class Authors {
         this.id = id;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     public String getName() {
         return name;
     }
@@ -39,9 +34,17 @@ public class Authors {
         this.name = name;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
-        return "Authors{" +
+        return "\n\t\tCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
 //                ", books=" + books +

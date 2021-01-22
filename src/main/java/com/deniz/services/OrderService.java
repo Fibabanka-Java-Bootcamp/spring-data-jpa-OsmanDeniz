@@ -1,7 +1,7 @@
-package com.hkarabakla.services;
+package com.deniz.services;
 
-import com.hkarabakla.entities.*;
-import com.hkarabakla.repositories.OrderRepo;
+import com.deniz.entities.*;
+import com.deniz.repositories.OrderRepo;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.hkarabakla.entities;
+package com.deniz.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,16 +18,18 @@ public class Book {
     private Double price;
     private String currency;
     private String imageURL;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @ManyToMany(fetch = FetchType.EAGER) // EAGER DENE
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "author_book",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_isbn"))
     private List<Authors> authors;
+    @ManyToMany(mappedBy = "orderBooks")
+    private List<Orders> orders;
 
     public List<Orders> getOrders() {
         return orders;
@@ -36,9 +38,6 @@ public class Book {
     public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
-
-    @ManyToMany(mappedBy = "orderBooks")
-    private List<Orders> orders;
 
     public List<Authors> getAuthors() {
         return authors;
@@ -50,7 +49,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "\n\t\tBook{" +
                 "isbn='" + isbn + '\'' +
                 ", name='" + name + '\'' +
                 ", category=" + category +

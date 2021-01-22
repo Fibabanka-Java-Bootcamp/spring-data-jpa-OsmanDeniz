@@ -1,4 +1,4 @@
-package com.hkarabakla.entities;
+package com.deniz.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,11 +11,11 @@ public class User {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Orders> orders;
 
     public List<Orders> getOrders() {
@@ -53,7 +53,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "\n\tid=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", orders=" + orders +

@@ -1,9 +1,8 @@
-package com.hkarabakla.services;
+package com.deniz.services;
 
-import com.hkarabakla.entities.Authors;
-import com.hkarabakla.entities.Book;
-import com.hkarabakla.entities.Category;
-import com.hkarabakla.repositories.CategoryRepo;
+import com.deniz.entities.Book;
+import com.deniz.entities.Category;
+import com.deniz.repositories.CategoryRepo;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

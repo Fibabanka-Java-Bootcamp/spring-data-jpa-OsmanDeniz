@@ -1,6 +1,6 @@
-package com.hkarabakla.repositories;
+package com.deniz.repositories;
 
-import com.hkarabakla.entities.User;
+import com.deniz.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -12,4 +12,9 @@ public interface UserRepo extends CrudRepository<User, Integer> {
     List<User> findAllByNameContainingIgnoreCase(String name);
 
     List<User> findAllByIdLessThanAndName(Integer id, String name);
+
+    List<User> findByAddressStreetIsContaining(String name);
+
+
+
 }

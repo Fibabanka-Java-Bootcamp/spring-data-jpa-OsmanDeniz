@@ -1,9 +1,9 @@
-package com.hkarabakla.services;
+package com.deniz.services;
 
-import com.hkarabakla.entities.Authors;
-import com.hkarabakla.entities.Book;
-import com.hkarabakla.entities.Category;
-import com.hkarabakla.repositories.AuthorRepo;
+import com.deniz.entities.Authors;
+import com.deniz.entities.Book;
+import com.deniz.entities.Category;
+import com.deniz.repositories.AuthorRepo;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;

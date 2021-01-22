@@ -1,4 +1,4 @@
-package com.hkarabakla.entities;
+package com.deniz.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,11 +14,11 @@ public class Orders {
     private LocalDate created_at;
     private Double total;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany // Eager denenebilir.
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "order_book",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -35,11 +35,11 @@ public class Orders {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "\n\t\tOrders{" +
                 "id=" + id +
                 ", created_at=" + created_at +
                 ", total=" + total +
-                ", user=" + user +
+//                ", user=" + user +
                 ", orderBooks=" + orderBooks +
                 '}';
     }
