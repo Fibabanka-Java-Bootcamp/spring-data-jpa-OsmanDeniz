@@ -19,8 +19,24 @@ public class UserService {
 
     public void userOperations() {
 
+
+        User u = createOperations("Osman DENIZ","Turk Tarihi", "Mustafa Kemal Ataturk", "Nutuk");
+        repo.save(u);
+        u = createOperations("Huseyin Karabakla","Turk Marslari", "Mehmet Akif Ersoy", "Istiklal Marsi");
+        repo.save(u);
+
+//        System.out.println(repo.findAll());
+
+//        System.out.println(repo.findByAddressStreetIsContaining("Gazi"));
+
+//        System.out.println(repo.findAllByNameContainingIgnoreCase("se"));
+
+        System.out.println(repo.findAllByOrdersTotal(23.45));
+    }
+
+    private User createOperations(String userName,String categoryName, String authorName, String bookName) {
         User u = new User();
-        u.setName("user");
+        u.setName(userName);
 
         Address address = new Address();
         address.setStreet("Gazi sokak");
@@ -30,34 +46,25 @@ public class UserService {
         u.setAddress(address);
 
         Category c = new Category();
-        c.setName("Category1");
+        c.setName(categoryName);
 
         Authors a = new Authors();
-        a.setName("Osman DENIZ");
+        a.setName(authorName);
 
         Book b = new Book();
-        b.setName("asdasadfsa");
+        b.setName(bookName);
         b.setIsbn(UUID.randomUUID().toString());
         b.setCategory(c);
-        b.setAuthors(Collections.singletonList(a));
+        b.setAuthors(Collections.singleton(a));
 
-        Orders o = new Orders();
-        o.setCreated_at(LocalDate.now());
-        o.setTotal(23.54);
-        o.setOrderBooks(Collections.singletonList(b));
+        Orders o = new Orders(LocalDate.now(), 23.45, u, Collections.singleton(b));
+//        o.setCreated_at(LocalDate.now());
+//        o.setTotal(23.54);
+//       // o.setUser(u);
+//        o.setOrderBooks(Collections.singleton(b));
 
-        u.setOrders(Collections.singletonList(o));
-
-        repo.save(u);
-
-        System.out.println(u);
-
-        System.out.println(repo.findByAddressStreetIsContaining("Gazi"));
-
-//        System.out.println(u.getId());
-
-//        System.out.println(repo.findAllByNameContainingIgnoreCase("se"));
-
+        u.setOrders(Collections.singleton(o));
+        return u;
     }
 
 }

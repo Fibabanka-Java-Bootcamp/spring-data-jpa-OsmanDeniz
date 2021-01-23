@@ -2,7 +2,10 @@ package com.deniz.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 
 @Entity
 public class Orders {
@@ -14,22 +17,31 @@ public class Orders {
     private LocalDate created_at;
     private Double total;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "order_book",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_isbn"))
-    private List<Book> orderBooks;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "order_book",
+            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "book_isbn", referencedColumnName = "book_isbn")})
+    private Set<Book> orderBooks = new HashSet<>();
 
-    public List<Book> getOrderBooks() {
+    public Orders(LocalDate created_at, Double total, User user, Set<Book> orderBooks) {
+        this.created_at = created_at;
+        this.total = total;
+        this.user = user;
+        this.orderBooks = orderBooks;
+    }
+
+    public Orders() {
+    }
+
+    public Set<Book> getOrderBooks() {
         return orderBooks;
     }
 
-    public void setOrderBooks(List<Book> orderBooks) {
+    public void setOrderBooks(Set<Book> orderBooks) {
         this.orderBooks = orderBooks;
     }
 
@@ -39,7 +51,6 @@ public class Orders {
                 "id=" + id +
                 ", created_at=" + created_at +
                 ", total=" + total +
-//                ", user=" + user +
                 ", orderBooks=" + orderBooks +
                 '}';
     }
@@ -74,5 +85,18 @@ public class Orders {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Orders)) return false;
+        Orders orders = (Orders) o;
+        return id == orders.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

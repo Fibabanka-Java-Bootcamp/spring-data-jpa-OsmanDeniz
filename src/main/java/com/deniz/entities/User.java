@@ -1,9 +1,13 @@
 package com.deniz.entities;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
+
 public class User {
     @Id
     @GeneratedValue
@@ -11,18 +15,21 @@ public class User {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Orders> orders;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Orders> orders;
 
-    public List<Orders> getOrders() {
+    public Set<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(Set<Orders> orders) {
         this.orders = orders;
     }
 
@@ -52,7 +59,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "\n\nUser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +

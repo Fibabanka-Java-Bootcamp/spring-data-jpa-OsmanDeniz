@@ -15,6 +15,7 @@ public interface UserRepo extends CrudRepository<User, Integer> {
 
     List<User> findByAddressStreetIsContaining(String name);
 
+    List<User> findAllByOrdersTotal(Double total);
 
 
 }

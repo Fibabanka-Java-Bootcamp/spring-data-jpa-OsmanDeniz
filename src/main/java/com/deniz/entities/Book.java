@@ -2,7 +2,8 @@ package com.deniz.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -22,28 +23,29 @@ public class Book {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "author_book",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_isbn"))
-    private List<Authors> authors;
-    @ManyToMany(mappedBy = "orderBooks")
-    private List<Orders> orders;
+    private Set<Authors> authors;
 
-    public List<Orders> getOrders() {
+    @ManyToMany(mappedBy = "orderBooks", fetch = FetchType.EAGER)
+    private Set<Orders> orders = new HashSet<>();
+
+    public Set<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(Set<Orders> orders) {
         this.orders = orders;
     }
 
-    public List<Authors> getAuthors() {
+    public Set<Authors> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Authors> authors) {
+    public void setAuthors(Set<Authors> authors) {
         this.authors = authors;
     }
 

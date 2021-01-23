@@ -1,7 +1,7 @@
 package com.deniz.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Authors {
@@ -12,8 +12,8 @@ public class Authors {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
-    private List<Book> books;
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    private Set<Book> books;
 
     public int getId() {
         return id;
@@ -23,11 +23,11 @@ public class Authors {
         this.id = id;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
